@@ -9,15 +9,13 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+use think\facade\Route;
+
 Route::get('/', 'index');  // 前台首页
 
 Route::get('admin', 'admin/login/view');
-
-Route::get('think', function () {
-    return 'hello,ThinkPHP5sdf!';
-});
-
-Route::get('hello/:name', 'index/hello');
+Route::get('new_code', 'admin/login/new_verify');
+Route::post('verify', 'admin/login/verify');
 
 return [
 
