@@ -13,9 +13,11 @@ use think\facade\Route;
 
 Route::get('/', 'index');  // 前台首页
 
-Route::get('admin', 'admin/login/view');
+Route::get('login', 'admin/login/view');
 Route::get('new_code', 'admin/login/new_verify');
 Route::post('verify', 'admin/login/verify');
+Route::get('logout', 'admin/login/logout');
+Route::get('admin', 'admin/index/index');
 
 return [
 

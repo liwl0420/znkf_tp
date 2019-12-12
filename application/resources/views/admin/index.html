@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>知识库管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {load href="/static/lib/layui-v2.5.4/css/layui.css" /}
+    <style>
+        .layui-logo a {
+            color: white;
+            font-size: 20px;
+        }
+        .nav_tool {
+            position: absolute !important;
+            top: 0;
+            left: 215px;
+            width: 60px;
+            height: 100%;
+            line-height: 60px;
+            text-align: center;
+            color: #ffffff !important;
+            transition: all .2s;
+        }
+        .nav_tool i {
+            display:block;color:#fff;width:32px;height:32px;line-height:32px;border-radius:3px;text-align:center;margin-top:15px;cursor:pointer;
+        }
+
+        .first-tab i.layui-tab-close{
+            display:none!important;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <div class="layui-header">
+        <div class="layui-logo">
+            <a href="javascript:;">知识库管理</a>
+        </div>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item ">
+                <a href="javascript:;">{$userinfo.nickname}</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;">个人资料</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;">修改密码</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" id="btn_logout">退出登录</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">知识库管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-type="tabAdd" data-tab="/intention">意图管理</a></dd>
+                        <dd><a href="javascript:;" data-type="tabAdd" data-tab="/tags">标签管理</a></dd>
+                        <dd><a href="javascript:;" data-type="tabAdd" data-tab="/keywords">关键词管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-type="tabAdd" data-tab="/user">用户管理</a></dd>
+                        <dd><a href="javascript:;" data-type="tabAdd" data-tab="/sys">系统设置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="layui-tab" lay-filter="adminTab" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this first-tab" lay-id="home">首页</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    首页内容
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{load href="/static/lib/layui-v2.5.4/layui.js" /}
+<script>
+    layui.use(['element', 'layer'], function () {
+        var $ = layui.jquery,
+            element = layui.element,
+            layer = layui.layer;
+
+        $('#btn_logout').on('click', function () {
+            layer.confirm('是否退出系统', {
+                icon: 3
+                ,title: false
+                ,btnAlign: 'c'
+                ,resize: false
+                ,scrollbar: false
+                ,move: false
+            }, function(index){
+                layer.close(index);
+                window.location = '/logout';
+            });
+        })
+
+    });
+</script>
+</body>
+</html>

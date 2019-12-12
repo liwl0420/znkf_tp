@@ -1,3 +1,4 @@
+<?php /*a:1:{s:76:"E:\ENV\AppServ\www\znkf_tp\application\resources\views\admin\login_view.html";i:1576131290;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -13,7 +14,7 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    {load href="/static/lib/layui-v2.5.4/css/layui.css" /}
+    <link rel="stylesheet" type="text/css" href="/static/lib/layui-v2.5.4/css/layui.css" />
     <style>
         body {
             background-image: url("/static/images/bg.jpg");
@@ -134,13 +135,13 @@
             </div>
             <div>
                 <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify"/>
-                <img class="admin-captcha" width="90" height="30" src="{:url('/new_code')}" alt="captcha" title="点击刷新" id="captcha_img" />
+                <img class="admin-captcha" width="90" height="30" src="<?php echo url('/new_code'); ?>" alt="captcha" title="点击刷新" id="captcha_img" />
             </div>
             <button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
         </form>
     </div>
 </div>
-{load href="/static/lib/layui-v2.5.4/layui.js" /}
+<script type="text/javascript" src="/static/lib/layui-v2.5.4/layui.js"></script>
 <script>
     layui.use(['form'], function () {
         const $ = layui.jquery,
@@ -151,7 +152,7 @@
         if (top.location != self.location) top.location = self.location;
 
         $('#captcha_img').on('click', function () {
-            $(this).attr('src', '{:url("/new_code")}');
+            $(this).attr('src', '<?php echo url("/new_code"); ?>');
         });
 
         // 进行登录操作
@@ -183,7 +184,7 @@
                     if (!jres.succ) {
                         layer.msg(jres.msg);
                         $(':input[name="captcha"]').val('');
-                        $('#captcha_img').attr('src', '{:url("/new_code")}');
+                        $('#captcha_img').attr('src', '<?php echo url("/new_code"); ?>');
                     } else {
                         window.location = jres.link;
                     }
