@@ -11,13 +11,25 @@
 
 use think\facade\Route;
 
-Route::get('/', 'index');  // 前台首页
+// 前台
+Route::get('/', 'index');
 
+// 登陆登出
 Route::get('login', 'admin/login/view');
 Route::get('new_code', 'admin/login/new_verify');
 Route::post('verify', 'admin/login/verify');
 Route::get('logout', 'admin/login/logout');
+
+// 后台
 Route::get('admin', 'admin/index/index');
+Route::get('admin/home', 'admin/index/home');
+Route::resource('admin/intention', 'admin/intention');
+Route::resource('admin/keywords', 'admin/keywords');
+Route::resource('admin/tags', 'admin/tags');
+Route::resource('admin/user', 'admin/user');
+Route::resource('admin/sysop', 'admin/sysop');
+
+Route::miss('miss');
 
 return [
 

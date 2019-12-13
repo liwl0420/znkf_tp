@@ -1,7 +1,9 @@
 <?php
 namespace app\index\controller;
 
-class Index
+use think\Controller;
+
+class Index extends Controller
 {
     public function index()
     {
@@ -11,5 +13,14 @@ class Index
     public function hello($name = 'ThinkPHP5')
     {
         return 'hello,' . $name;
+    }
+
+    /**
+     * 显示404页面
+     * @return mixed
+     */
+    public function miss()
+    {
+        return $this->fetch('/miss');
     }
 }

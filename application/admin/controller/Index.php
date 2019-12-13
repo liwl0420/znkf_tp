@@ -18,8 +18,8 @@ class Index extends Base
         return $this->fetch('/index');
     }
 
-    public function hello($name = 'ThinkPHP5')
+    public function home()
     {
-        return 'hello,' . $name;
+        return $this->fetch();
     }
 }
