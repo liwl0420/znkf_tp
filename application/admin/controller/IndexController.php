@@ -1,11 +1,15 @@
 <?php
 namespace app\admin\controller;
 
-use app\common\controller\Base;
+use app\common\controller\BaseController;
 use think\facade\Log;
 use think\facade\Session;
 
-class Index extends Base
+/**
+ * 前台首页
+ * @package app\admin\controller
+ */
+class IndexController extends BaseController
 {
     /**
      * 视图渲染

@@ -128,15 +128,19 @@
     <div class="layui-body">
         <div class="layui-tab" lay-filter="adminTab" lay-allowClose="true">
             <ul class="layui-tab-title" id="homeTabItem">
-                <li class="layui-this first-tab" lay-id="admin/home">首页</li>
+                <li class="layui-this first-tab" lay-id="admin/home" id="homeTabLi">首页</li>
             </ul>
             <!-- 选项卡操作 -->
             <ul class="layui-nav layui-layout-right" id="tabOp">
                 <li class="layui-nav-item ">
                     <a href="javascript:"><i class="layui-icon layui-icon-util"></i> 选项卡操作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:"><i class="layui-icon layui-icon-refresh"></i> 刷新</a></dd>
-                        <dd><a href="javascript:"><i class="layui-icon layui-icon-close"></i> 关闭其他</a></dd>
+                        <dd><a href="javascript:" data-tab-operation="refresh"><i
+                                class="layui-icon layui-icon-refresh"></i> 刷新</a></dd>
+                        <dd><a href="javascript:" data-tab-operation="closeOther"><i
+                                class="layui-icon layui-icon-close"></i> 关闭其他</a></dd>
+                        <dd><a href="javascript:" data-tab-operation="closeAll"><i
+                                class="layui-icon layui-icon-home"></i> 关闭全部</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -153,10 +157,10 @@
 {load href="/static/js/lay-config.js" /}
 <script>
     layui.use(['element', 'layer', 'adminui'], function () {
-        var $ = layui.jquery
-            ,element = layui.element
-            ,layer = layui.layer
-            ,adminui = layui.adminui;
+        let $ = layui.jquery
+            , element = layui.element
+            , layer = layui.layer
+            , adminui = layui.adminui;
 
         adminui.init();
 

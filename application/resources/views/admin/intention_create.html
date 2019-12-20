@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>意图管理-添加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {load href="/static/lib/layui-v2.5.4/css/layui.css" /}
+    {load href="/static/js/lay-module/step-lay/step.css" /}
+    <style>
+        body {
+            margin: 15px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body" style="padding-top: 40px;">
+            <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
+                <div carousel-item>
+                    <div>
+                        <form class="layui-form" style="margin: 0 auto;max-width: 600px;padding-top: 40px;">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">意图名称：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="txtName" placeholder="请填写意图名称" class="layui-input"
+                                           lay-verify="required"/>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">备注说明：</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="备注" value="" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn layui-btn-primary back">返&emsp;回</button>
+                                    <button class="layui-btn" lay-submit lay-filter="toAddSlot">
+                                        &emsp;下一步&emsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <form class="layui-form"
+                              style="margin: 0 auto;max-width: 600px; width: 600px;padding-top: 40px;">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">意图名称：</label>
+                                <div class="layui-input-block">
+                                    <div class="layui-form-mid layui-word-aux"><span class="spanName"></span></div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div style="margin-bottom: 20px">
+                                    <button type="button"
+                                            class="layui-btn layui-btn-primary layui-btn-sm layui-btn-radius adddata">
+                                        <i class="layui-icon">&#xe608;</i> 添加
+                                    </button>
+                                    <table id="currentTableId" lay-filter="currentTableFilter"></table>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn layui-btn-primary back">返&emsp;回</button>
+                                    <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                    <button class="layui-btn" lay-submit lay-filter="toAddAnswer">
+                                        &emsp;下一步&emsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <form class="layui-form" style="margin: 0 auto;max-width: 600px;padding-top: 40px;">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">默认答案：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="txtAnswer" placeholder="请填写默认答案" class="layui-input"
+                                           lay-verify="required"/>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">备注说明：</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="备注" value="" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn layui-btn-primary back">返&emsp;回</button>
+                                    <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                    <button class="layui-btn" lay-submit lay-filter="toFinish">
+                                        &emsp;确认提交&emsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <div style="text-align: center;margin-top: 90px;">
+                            <i class="layui-icon layui-circle"
+                               style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
+                            <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
+                                提交成功
+                            </div>
+                        </div>
+                        <div style="text-align: center;margin-top: 50px;">
+                            <button type="button" class="layui-btn layui-btn-primary back">返&emsp;回</button>
+                            <button class="layui-btn next">再次添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{load href="/static/lib/layui-v2.5.4/layui.js" /}
+{load href="/static/js/lay-config.js" /}
+<script>
+    layui.use(['form', 'step', 'table', 'selectLayer'], function () {
+        let $ = layui.$
+            , form = layui.form
+            , step = layui.step
+            , table = layui.table
+            , selectLayer = layui.selectLayer;
+
+        step.render({
+            elem: '#stepForm',
+            filter: 'stepForm',
+            width: '100%', //设置容器宽度
+            height: '500px',
+            stepWidth: '700px',
+            stepItems: [{
+                title: '添加意图'
+            }, {
+                title: '添加词槽'
+            }, {
+                title: '添加关联信息'
+            }, {
+                title: '完成'
+            }]
+        });
+
+        // 表格初始化
+        table.render({
+            elem: '#currentTableId',
+            data: [],
+            cols: [[
+                {type: "checkbox", fixed: "left"},
+                {field: 'name', title: '词槽名称', edit: "text"},
+                {field: 'tags', title: '标签', event: "tagsSel"},
+                {field: 'keywords', title: '关键词', event: "keywordsSel"},
+            ]],
+            text: {
+                none: '暂无相关数据'
+            },
+            autoSort: false,
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data; // 获得当前行数据
+            var layEvent = obj.event; // 获得lay-event对应的值
+            var tr = obj.tr; // 获得当前tr的DOM对象
+            //console.log(obj);
+            //console.log($(this));
+
+            if (layEvent === 'tagsSel') {
+                selectLayer.render({
+                    elem: $(this)
+                    , title: '标签选择'
+                    , id: 'tagsSel'
+                    , checkedKey: 'id'
+                    , searchKey: 'search'
+                    , searchPlaceholder: '标签搜索'
+                    , table: {
+                        url: '../tags/getall'
+                        , method: 'post'
+                        , cols: [[
+                            {type: "checkbox", fixed: "left"},
+                            {field: "id", title: 'ID', hide: true},
+                            {field: 'name', title: '标签名称'},
+                            {
+                                field: 'type', title: '标签类型', templet: function (d) {
+                                    return d.type === 0 ? '系统' : '用户';
+                                }
+                            }
+                        ]]
+                        , limits: [10, 20]
+                        , limit: 10
+                        , page: true
+                    }
+                    , done: function (elem, checkStatus) {
+                        //console.log(elem);
+                        //console.log(checkStatus);
+                        if (checkStatus) {
+                            var temp = '';
+                            for (var i = 0; i < checkStatus.data.length; i++) {
+                                temp += checkStatus.data[i]['name'] + ',';
+                            }
+                            elem.children().html('<span>' + temp + '</span>');
+                        }
+                        elem.parent().removeClass('layui-table-click');
+                    }
+                });
+            } else if (layEvent === 'keywordsSel') {
+                selectLayer.render({
+                    elem: $(this)
+                    , title: '关键词选择'
+                    , id: 'keywordsSel'
+                    , checkedKey: 'id'
+                    , searchKey: 'search'
+                    , searchPlaceholder: '关键词搜索'
+                    , table: {
+                        url: '../keywords/getall'
+                        , method: 'post'
+                        , cols: [[
+                            {type: "checkbox", fixed: "left"},
+                            {field: "id", title: 'ID', hide: true},
+                            {field: 'name', title: '关键词名称'},
+                            {field: 'code', title: '关键词代号'},
+                            {
+                                field: 'type', title: '关键词类型', templet: function (d) {
+                                    return d.type === 0 ? '系统' : '用户';
+                                }
+                            }
+                        ]]
+                        , limits: [10, 20]
+                        , limit: 10
+                        , page: true
+                    }
+                    , done: function (elem, checkStatus) {
+                        if (checkStatus) {
+                            var temp = '';
+                            for (var i = 0; i < checkStatus.data.length; i++) {
+                                temp += checkStatus.data[i]['name'] + ',';
+                            }
+                            elem.children().html('<span>' + temp + '</span>');
+                        }
+                        elem.parent().removeClass('layui-table-click');
+                    }
+                });
+            }
+        });
+
+        $('.adddata').click(function () {
+            //alert(JSON.stringify(table.cache));
+            var newdatas = [];
+            var tableData = table.cache['currentTableId'];
+            if (tableData != null) {
+                for (var i = 0; i < tableData.length; i++) {
+                    newdatas.push(tableData[i]);
+                }
+                //console.log(newdatas);
+            }
+            newdatas.push({
+                'name': '',
+                'tags': '',
+                'keywords': ''
+            });
+            table.reload('currentTableId', {data: newdatas});
+        });
+
+
+        // 下一步，添加词槽
+        form.on('submit(toAddSlot)', function (data) {
+            $('span.spanName').html($('#txtName').val());
+            step.next('#stepForm');
+            return false;
+        });
+
+        // 下一步，添加答案
+        form.on('submit(toAddAnswer)', function (data) {
+            step.next('#stepForm');
+            return false;
+        });
+
+        // 下一步，提交完成
+        form.on('submit(toFinish)', function (data) {
+            step.next('#stepForm');
+            return false;
+        });
+
+        // 上一步
+        $('.pre').click(function () {
+            step.pre('#stepForm');
+        });
+
+        // 下一步
+        $('.next').click(function () {
+            step.next('#stepForm');
+        });
+
+        // 返回列表页
+        $('.back').click(function () {
+            var othis = parent.layui.$(".layui-tab-content div.layui-show").eq(0)
+                , oiframe = othis.children('iframe').eq(0);
+            oiframe.attr('src', 'admin/intention');
+        });
+    });
+</script>
+</body>
+</html>

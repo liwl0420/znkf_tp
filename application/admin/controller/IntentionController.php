@@ -2,10 +2,15 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\Base;
+use app\common\controller\BaseController;
+use app\common\model\IntentionModel;
 use think\Request;
 
-class User extends Base
+/**
+ * 意图管理控制器
+ * @package app\admin\controller
+ */
+class IntentionController extends BaseController
 {
     /**
      * 显示资源列表
@@ -15,6 +20,27 @@ class User extends Base
     public function index()
     {
         //
+        return $this->fetch();
+    }
+
+    /**
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getAll()
+    {
+        $page = \think\facade\Request::param('page', '1');
+        $limit = \think\facade\Request::param('limit', '10');
+        $data = IntentionModel::order('createtime', 'desc')->paginate(intval($limit), false, ['page' => intval($page)]);
+        if ($data->isEmpty())
+            $res = ['code' => 0, 'msg' => '', 'count' => 0, 'data' => []];
+        else {
+            $count = $data->total();
+            $res = ['code' => 0, 'msg' => '', 'count' => $count, 'data' => $data->items()];
+        }
+        return json($res);
     }
 
     /**
@@ -25,6 +51,7 @@ class User extends Base
     public function create()
     {
         //
+        return $this->fetch();
     }
 
     /**

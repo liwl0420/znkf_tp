@@ -23,10 +23,18 @@ Route::get('logout', 'admin/login/logout');
 // 后台
 Route::get('admin', 'admin/index/index');
 Route::get('admin/home', 'admin/index/home');
+
 Route::resource('admin/intention', 'admin/intention');
+Route::post('admin/intention/getall', 'admin/intention/getall');
+
 Route::resource('admin/keywords', 'admin/keywords');
+Route::post('admin/keywords/getall', 'admin/keywords/getall');
+
 Route::resource('admin/tags', 'admin/tags');
+Route::post('admin/tags/getall', 'admin/tags/getall');
+
 Route::resource('admin/user', 'admin/user');
+
 Route::resource('admin/sysop', 'admin/sysop');
 
 Route::miss('miss');

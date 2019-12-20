@@ -2,10 +2,10 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\Base;
+use app\common\controller\BaseController;
 use think\Request;
 
-class Tags extends Base
+class UserController extends BaseController
 {
     /**
      * 显示资源列表

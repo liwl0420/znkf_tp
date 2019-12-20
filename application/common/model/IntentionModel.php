@@ -3,9 +3,10 @@
 
 namespace app\common\model;
 
+
 use think\Model;
 
-class User extends Model
+class IntentionModel extends Model
 {
     protected $pk = 'id';
 
@@ -13,4 +14,5 @@ class User extends Model
     {
 
     }
+
 }

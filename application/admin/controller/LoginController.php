@@ -1,14 +1,14 @@
 <?php
 namespace app\admin\controller;
 
-use app\common\controller\Base;
-use app\common\model\User;
+use app\common\controller\BaseController;
+use app\common\model\UserModel;
 use think\captcha\Captcha;
 use think\Controller;
 use think\facade\Log;
 use think\facade\Session;
 
-class Login extends Controller
+class LoginController extends Controller
 {
     /**
      * 视图渲染
@@ -62,7 +62,7 @@ class Login extends Controller
             return json_encode($res);
         }
 
-        $login_user = User::where('username=:name and password=:pwd')
+        $login_user = UserModel::where('username=:name and password=:pwd')
             ->bind(['name' => $data['username'], 'pwd' => md5($data['password'])])
             ->field('id, username, nickname')
             ->find();

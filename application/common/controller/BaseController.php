@@ -8,7 +8,7 @@ use think\Controller;
 use think\exception\HttpResponseException;
 use think\facade\Session;
 
-class Base extends Controller
+class BaseController extends Controller
 {
     protected $userinfo;
 
