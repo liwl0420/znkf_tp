@@ -66,8 +66,12 @@
                             <div class="layui-form-item">
                                 <div style="margin-bottom: 20px">
                                     <button type="button"
-                                            class="layui-btn layui-btn-primary layui-btn-sm layui-btn-radius adddata">
+                                            class="layui-btn layui-btn-sm layui-btn-radius adddata">
                                         <i class="layui-icon">&#xe608;</i> 添加
+                                    </button>
+                                    <button type="button"
+                                            class="layui-btn layui-btn-primary layui-btn-sm layui-btn-radius deldata">
+                                        <i class="layui-icon">&#x1006;</i> 删除
                                     </button>
                                     <table id="currentTableId" lay-filter="currentTableFilter"></table>
                                 </div>
@@ -170,6 +174,37 @@
             autoSort: false,
         });
 
+        function selectLayerRender(elem, titile, id, checkedKey, searchKey, searchTips, dataUrl, col) {
+            selectLayer.render({
+                elem: elem
+                , title: titile
+                , id: id
+                , checkedKey: checkedKey
+                , searchKey: searchKey
+                , searchPlaceholder: searchTips
+                , table: {
+                    url: dataUrl
+                    , method: 'post'
+                    , cols: col
+                    , limits: [10, 20]
+                    , limit: 10
+                    , page: true
+                }
+                , done: function (elem, checkStatus) {
+                    //console.log(elem);
+                    //console.log(checkStatus);
+                    if (checkStatus) {
+                        var temp = '';
+                        for (var i = 0; i < checkStatus.data.length; i++) {
+                            temp += checkStatus.data[i]['name'] + ',';
+                        }
+                        elem.children().html('<span>' + temp + '</span>');
+                    }
+                    elem.parent().removeClass('layui-table-click');
+                }
+            });
+        }
+
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data; // 获得当前行数据
             var layEvent = obj.event; // 获得lay-event对应的值
@@ -178,83 +213,34 @@
             //console.log($(this));
 
             if (layEvent === 'tagsSel') {
-                selectLayer.render({
-                    elem: $(this)
-                    , title: '标签选择'
-                    , id: 'tagsSel'
-                    , checkedKey: 'id'
-                    , searchKey: 'search'
-                    , searchPlaceholder: '标签搜索'
-                    , table: {
-                        url: '../tags/getall'
-                        , method: 'post'
-                        , cols: [[
-                            {type: "checkbox", fixed: "left"},
-                            {field: "id", title: 'ID', hide: true},
-                            {field: 'name', title: '标签名称'},
-                            {
-                                field: 'type', title: '标签类型', templet: function (d) {
-                                    return d.type === 0 ? '系统' : '用户';
-                                }
-                            }
-                        ]]
-                        , limits: [10, 20]
-                        , limit: 10
-                        , page: true
-                    }
-                    , done: function (elem, checkStatus) {
-                        //console.log(elem);
-                        //console.log(checkStatus);
-                        if (checkStatus) {
-                            var temp = '';
-                            for (var i = 0; i < checkStatus.data.length; i++) {
-                                temp += checkStatus.data[i]['name'] + ',';
-                            }
-                            elem.children().html('<span>' + temp + '</span>');
+                var col = [[
+                    {type: "checkbox", fixed: "left"},
+                    {field: "id", title: 'ID', hide: true},
+                    {field: 'name', title: '标签名称'},
+                    {
+                        field: 'type', title: '标签类型', templet: function (d) {
+                            return d.type === 0 ? '系统' : '用户';
                         }
-                        elem.parent().removeClass('layui-table-click');
                     }
-                });
+                ]];
+                selectLayerRender($(this), '标签选择', 'tagsSel', 'id', 'search', '标签搜索', '../tags/getall', col);
             } else if (layEvent === 'keywordsSel') {
-                selectLayer.render({
-                    elem: $(this)
-                    , title: '关键词选择'
-                    , id: 'keywordsSel'
-                    , checkedKey: 'id'
-                    , searchKey: 'search'
-                    , searchPlaceholder: '关键词搜索'
-                    , table: {
-                        url: '../keywords/getall'
-                        , method: 'post'
-                        , cols: [[
-                            {type: "checkbox", fixed: "left"},
-                            {field: "id", title: 'ID', hide: true},
-                            {field: 'name', title: '关键词名称'},
-                            {field: 'code', title: '关键词代号'},
-                            {
-                                field: 'type', title: '关键词类型', templet: function (d) {
-                                    return d.type === 0 ? '系统' : '用户';
-                                }
-                            }
-                        ]]
-                        , limits: [10, 20]
-                        , limit: 10
-                        , page: true
-                    }
-                    , done: function (elem, checkStatus) {
-                        if (checkStatus) {
-                            var temp = '';
-                            for (var i = 0; i < checkStatus.data.length; i++) {
-                                temp += checkStatus.data[i]['name'] + ',';
-                            }
-                            elem.children().html('<span>' + temp + '</span>');
+                var col = [[
+                    {type: "checkbox", fixed: "left"},
+                    {field: "id", title: 'ID', hide: true},
+                    {field: 'name', title: '关键词名称'},
+                    {field: 'code', title: '关键词代号'},
+                    {
+                        field: 'type', title: '关键词类型', templet: function (d) {
+                            return d.type === 0 ? '系统' : '用户';
                         }
-                        elem.parent().removeClass('layui-table-click');
                     }
-                });
+                ]]
+                selectLayerRender($(this), '关键词选择', 'keywordsSel', 'id', 'search', '关键词搜索', '../keywords/getall', col);
             }
         });
 
+        // 添加一行词槽
         $('.adddata').click(function () {
             //alert(JSON.stringify(table.cache));
             var newdatas = [];
@@ -274,14 +260,14 @@
         });
 
 
-        // 下一步，添加词槽
+        // 下一步，添加词槽页面
         form.on('submit(toAddSlot)', function (data) {
             $('span.spanName').html($('#txtName').val());
             step.next('#stepForm');
             return false;
         });
 
-        // 下一步，添加答案
+        // 下一步，添加答案页面
         form.on('submit(toAddAnswer)', function (data) {
             step.next('#stepForm');
             return false;
